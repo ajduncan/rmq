@@ -1,13 +1,40 @@
 <head>
-  <title>rmq</title>
+	<title>rmq</title>
 </head>
 
-<body>
-	<h1>Request Manager Queue</h1>
-	{{> loginButtons}}
-	{{> addrequest }}
-</body>
+<template name="home">
+	<div class="container">
+	    <header>
+			{{> addRequest }}
+		</header>
+	</div>
+</template>
 
-<template name="addrequest">
-  <button>Add Request</button>
+<template name="addRequest">
+	<form class="new-request">
+		<input type="text" name="name" placeholder="Type your name" /> <br>
+		<textarea name="text" rows="20" style="width: 90%" placeholder="Type to describe the request"></textarea> <br>
+		<button>Add new request</button>
+	</form>
+</template>
+
+<template name="request">
+	<li>
+		<span class="text"><strong>{{owner}}</strong> - {{text}}</span>
+	</li>
+</template>
+
+<template name="requests">
+	<div class="container">
+		<header>
+			<h1>Manage Requests</h1>
+			{{> loginButtons}}
+		</header>
+		<ul>
+			{{#each requests}}
+				{{> request}}
+			{{/each}}
+		</ul>
+		{{> addRequest }}
+	</div>
 </template>
