@@ -6,12 +6,18 @@
 	<div class="container">
 	    <header>
 			<h1>Requests</h1>
-			{{> addRequest }}
+			{{> insertRequestForm }}
 		</header>
 	</div>
 </template>
 
+<template name="insertRequestForm">
+	{{> quickForm collection="Requests" id="insertRequestForm" type="insert"}}
+</template>
+
 <template name="addRequest">
+	<br><br>
+	<strong>Test</strong>
 	<form class="new-request">
 		<input type="text" name="name" placeholder="Type your name" /> <br><br>
 		{{#if categories.count}}
@@ -29,7 +35,7 @@
 
 <template name="request">
 	<li>
-		<span class="text"><strong>{{owner}}</strong>: {{category}} - {{text}}</span>
+		<span class="text"><strong>({{first_name}} {{last_name}})</strong> {{category}} {{subject}}: {{text}}</span>
 	</li>
 </template>
 

@@ -124,3 +124,10 @@ header .hide-completed {
     padding-bottom: 5px;
   }
 }
+
+/* one day, this should work */
+/* see: https://github.com/aldeed/meteor-autoform/issues/413  */
+.form-group.required .control-label:before {
+  content:"*";
+  color:red;
+}

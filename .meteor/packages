@@ -12,4 +12,5 @@ nemo64:bootstrap
 less
 iron:router
 aldeed:collection2
+aldeed:autoform
 

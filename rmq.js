@@ -1,29 +1,93 @@
 Requests = new Mongo.Collection("requests");
 Categories = new Mongo.Collection("categories");
 
-// db.requests.insert({ text: "Hello world!", createdAt: new Date(), owner: "LOLSMEE" });
 // db.categories.insert({ name: "Type 1" });
+
+// See: https://github.com/peerlibrary/meteor-peerdb/issues/17
+// see also: https://github.com/aldeed/meteor-collection2/issues/31
 
 var Schemas = {};
 
-Schemas.Request = new SimpleSchema({
-  owner: {
+Schemas.Categories = new SimpleSchema({
+  name: {
     type: String,
     label: "Name",
-    max: 200
+    max: 100,
+    optional: false
+  }
+});
+
+// So why do we have a schema with autoform specifying html styles here?  That seems wrong.
+Schemas.Request = new SimpleSchema({
+  first_name: {
+    type: String,
+    label: "First name",
+    max: 100,
+    optional: false,
+    autoform: {
+      style: "width: 90%"
+    }
+  },
+  last_name: {
+    type: String,
+    label: "Last name",
+    max: 100,
+    autoform: {
+      style: "width: 90%"
+    }
+  },
+  email: {
+    type: String,
+    label: "Email",
+    regEx: SimpleSchema.RegEx.Email,
+    optional: false,
+    max:50,
+    autoform: {
+      style: "width: 90%"
+    }
+  },
+  subject: {
+    type: String,
+    label: "Subject",
+    max: 100,
+    optional: false,
+    autoform: {
+      style: "width: 90%"
+    }
   },
   text: {
     type: String,
     label: "Description",
-    max: 2000
+    max: 2000,
+    optional: false,
+    autoform: {
+      type: "textarea",
+      rows: 6,
+      style: "width: 90%"
+    }
   },
   category: {
-    type: String,
-    label: "Category"
+    type: Schemas.Categories._id,
+    label: "Category",
+    optional: false,
+    autoform: {
+        // http://stackoverflow.com/questions/23644355/how-to-generate-a-form-to-select-a-user-using-autoform-and-collection2-in-meteor
+        options: function () {
+          var options = [];
+          Categories.find().forEach(function (element) {
+            options.push({
+              label: element.name, value: element._id._str
+            })
+          });
+          return options;
+        }
+    }
   }
 });
 
 Requests.attachSchema(Schemas.Request);
+Categories.attachSchema(Schemas.Categories);
+
 
 Router.route('/', function() {
   templateData = { requests: Requests.find({}), categories: Categories.find({}) };
@@ -34,7 +98,10 @@ Router.map(function() {
 
   this.route('requests', {
     data: function() {
-      templateData = { requests: Requests.find({}), categories: Categories.find({}) };
+      requests: Requests.find({});
+      categories: Categories.find({_id: requests.category})
+
+      templateData = { requests: requests, categories: categories };
       return templateData;
     }
   });
@@ -47,15 +114,22 @@ if (Meteor.isClient) {
     "submit .new-request": function (event) {
       // This function is called when the new request form is submitted
 
-      var text = event.target.text.value;
-      var name = event.target.name.value;
+      var first_name = event.target.first_name.value;
+      var last_name = event.target.last_name.value;
+      var email = event.target.email.value;
+      var subject = event.target.subject.value;
       var category = event.target.category.value;
-      Meteor.call("addRequest", text, name, category);
+      var text = event.target.text.value;
+
+      Meteor.call("addRequest", first_name, last_name, email, subject, category, text);
 
       // Clear form
+      event.target.first_name.value = "";
+      event.target.last_name.value = "";
+      event.target.email.value = "";
+      event.target.subject.value = "";
       event.target.text.value = "";
-      event.target.name.value = "";
-      event.target.category.value = "";
+      // how to clear category to default?
 
       // Prevent default form submit
       return false;
@@ -76,10 +150,13 @@ if (Meteor.isClient) {
 }
 
 Meteor.methods({
-  addRequest: function (text, name, category) {
+  addRequest: function (first_name, last_name, email, subject, category, text) {
     Requests.insert({
-      owner: name,
       createdAt: new Date(),
+      owner: first_name,
+      last_name: last_name,
+      email: email,
+      subject: subject,
       category: category,
       text: text
     });
