@@ -4,6 +4,27 @@ Categories = new Mongo.Collection("categories");
 // db.requests.insert({ text: "Hello world!", createdAt: new Date(), owner: "LOLSMEE" });
 // db.categories.insert({ name: "Type 1" });
 
+var Schemas = {};
+
+Schemas.Request = new SimpleSchema({
+  owner: {
+    type: String,
+    label: "Name",
+    max: 200
+  },
+  text: {
+    type: String,
+    label: "Description",
+    max: 2000
+  },
+  category: {
+    type: String,
+    label: "Category"
+  }
+});
+
+Requests.attachSchema(Schemas.Request);
+
 Router.route('/', function() {
   templateData = { requests: Requests.find({}), categories: Categories.find({}) };
   this.render('home', {data: templateData} );
@@ -83,6 +104,6 @@ Meteor.methods({
 if (Meteor.isServer) {
   Meteor.startup(function () {
     // code to run on server at startup
-    console.log("TEST?");
+    console.log("Meteor is running.");
   });
 }
