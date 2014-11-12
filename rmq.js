@@ -1,15 +1,19 @@
 Requests = new Mongo.Collection("requests");
+Categories = new Mongo.Collection("categories");
+
 // db.requests.insert({ text: "Hello world!", createdAt: new Date(), owner: "LOLSMEE" });
+// db.categories.insert({ name: "Type 1" });
 
 Router.route('/', function() {
-  this.render('home');
+  templateData = { requests: Requests.find({}), categories: Categories.find({}) };
+  this.render('home', {data: templateData} );
 });
 
 Router.map(function() {
 
   this.route('requests', {
     data: function() {
-      templateData = { requests: Requests.find({}) };
+      templateData = { requests: Requests.find({}), categories: Categories.find({}) };
       return templateData;
     }
   });
@@ -24,11 +28,13 @@ if (Meteor.isClient) {
 
       var text = event.target.text.value;
       var name = event.target.name.value;
-      Meteor.call("addRequest", text, name);
+      var category = event.target.category.value;
+      Meteor.call("addRequest", text, name, category);
 
       // Clear form
       event.target.text.value = "";
       event.target.name.value = "";
+      event.target.category.value = "";
 
       // Prevent default form submit
       return false;
@@ -49,11 +55,12 @@ if (Meteor.isClient) {
 }
 
 Meteor.methods({
-  addRequest: function (text, name) {
+  addRequest: function (text, name, category) {
     Requests.insert({
-      text: text,
+      owner: name,
       createdAt: new Date(),
-      owner: name
+      category: category,
+      text: text
     });
     /* Meteor.userId(), */
     /* username: Meteor.user().username */

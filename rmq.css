@@ -52,14 +52,14 @@ form {
 .new-request input {
   box-sizing: border-box;
   padding: 10px 0;
-  background: transparent;
-  border: none;
-  width: 100%;
+  /* background: transparent; */
+  border: 1px solid #000;
+  width: 90%;
   padding-right: 80px;
   font-size: 1em;
 }
 
-.new-request input:focus{
+.new-request input:focus {
   outline: 0;
 }
 

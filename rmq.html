@@ -14,6 +14,14 @@
 <template name="addRequest">
 	<form class="new-request">
 		<input type="text" name="name" placeholder="Type your name" /> <br><br>
+		{{#if categories.count}}
+		<select name="category">
+			<option value="none">Please select a category</option>
+			{{#each categories}}
+				<option value="{{name}}">{{name}}</option>
+			{{/each}}
+		</select><br><br>
+		{{/if}}
 		<textarea name="text" rows="20" style="width: 90%" placeholder="Type to describe the request"></textarea> <br><br>
 		<button>Add new request</button>
 	</form>
@@ -21,7 +29,7 @@
 
 <template name="request">
 	<li>
-		<span class="text"><strong>{{owner}}</strong> - {{text}}</span>
+		<span class="text"><strong>{{owner}}</strong>: {{category}} - {{text}}</span>
 	</li>
 </template>
 
