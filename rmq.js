@@ -71,16 +71,17 @@ Schemas.Request = new SimpleSchema({
     label: "Category",
     optional: false,
     autoform: {
+      type: "select",
         // http://stackoverflow.com/questions/23644355/how-to-generate-a-form-to-select-a-user-using-autoform-and-collection2-in-meteor
-        options: function () {
-          var options = [];
-          Categories.find().forEach(function (element) {
-            options.push({
-              label: element.name, value: element._id._str
-            })
-          });
-          return options;
-        }
+      options: function () {
+        var options = [];
+        Categories.find().forEach(function (element) {
+          options.push({
+            label: element.name, value: element._id._str
+          })
+        });
+        return options;
+      }
     }
   }
 });
@@ -98,10 +99,8 @@ Router.map(function() {
 
   this.route('requests', {
     data: function() {
-      requests: Requests.find({});
-      categories: Categories.find({_id: requests.category})
-
-      templateData = { requests: requests, categories: categories };
+      requests = Requests.find({});
+      templateData = { requests: requests };
       return templateData;
     }
   });
