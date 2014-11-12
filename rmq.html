@@ -5,6 +5,7 @@
 <template name="home">
 	<div class="container">
 	    <header>
+			<h1>Requests</h1>
 			{{> addRequest }}
 		</header>
 	</div>
@@ -12,8 +13,8 @@
 
 <template name="addRequest">
 	<form class="new-request">
-		<input type="text" name="name" placeholder="Type your name" /> <br>
-		<textarea name="text" rows="20" style="width: 90%" placeholder="Type to describe the request"></textarea> <br>
+		<input type="text" name="name" placeholder="Type your name" /> <br><br>
+		<textarea name="text" rows="20" style="width: 90%" placeholder="Type to describe the request"></textarea> <br><br>
 		<button>Add new request</button>
 	</form>
 </template>
@@ -35,6 +36,5 @@
 				{{> request}}
 			{{/each}}
 		</ul>
-		{{> addRequest }}
 	</div>
 </template>

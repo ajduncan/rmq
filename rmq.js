@@ -17,11 +17,10 @@ Router.map(function() {
 });
 
 if (Meteor.isClient) {
-  Session.setDefault("counter", 0);
 
-  Template.body.events({
+  Template.addRequest.events({
     "submit .new-request": function (event) {
-      // This function is called when the new task form is submitted
+      // This function is called when the new request form is submitted
 
       var text = event.target.text.value;
       var name = event.target.name.value;
@@ -36,11 +35,13 @@ if (Meteor.isClient) {
     }
   });
 
+/*
   Template.addrequest.helpers({
   });
 
   Template.addrequest.events({
   });
+*/
 
   Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
@@ -48,13 +49,14 @@ if (Meteor.isClient) {
 }
 
 Meteor.methods({
-  addRequest: function (text) {
+  addRequest: function (text, name) {
     Requests.insert({
       text: text,
       createdAt: new Date(),
-      owner: name /*, Meteor.userId(), */
-      /* username: Meteor.user().username */
+      owner: name
     });
+    /* Meteor.userId(), */
+    /* username: Meteor.user().username */
   },
   deleteRequest: function (requestId) {
     var request = Requests.findOne(requestId);
@@ -74,5 +76,6 @@ Meteor.methods({
 if (Meteor.isServer) {
   Meteor.startup(function () {
     // code to run on server at startup
+    console.log("TEST?");
   });
 }
