@@ -12,9 +12,3 @@ management of requests and integration with other systems.
 	$ meteor
 
 	View the application at: http://localhost:3000/
-
-## Using Vagrant ##
-
-## Using Docker, CoreOS and Vagrant ##
-
-## Deploying ##
