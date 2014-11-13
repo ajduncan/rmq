@@ -17,6 +17,8 @@ Schemas.Categories = new SimpleSchema({
   }
 });
 
+Categories.attachSchema(Schemas.Categories);
+
 // So why do we have a schema with autoform specifying html styles here?  That seems wrong.
 Schemas.Request = new SimpleSchema({
   first_name: {
@@ -66,13 +68,11 @@ Schemas.Request = new SimpleSchema({
       style: "width: 90%"
     }
   },
+  // http://stackoverflow.com/questions/23644355/how-to-generate-a-form-to-select-a-user-using-autoform-and-collection2-in-meteor
   category: {
     type: Schemas.Categories._id,
     label: "Category",
-    optional: false,
     autoform: {
-      type: "select",
-        // http://stackoverflow.com/questions/23644355/how-to-generate-a-form-to-select-a-user-using-autoform-and-collection2-in-meteor
       options: function () {
         var options = [];
         Categories.find().forEach(function (element) {
@@ -87,12 +87,10 @@ Schemas.Request = new SimpleSchema({
 });
 
 Requests.attachSchema(Schemas.Request);
-Categories.attachSchema(Schemas.Categories);
 
 
 Router.route('/', function() {
-  templateData = { requests: Requests.find({}), categories: Categories.find({}) };
-  this.render('home', {data: templateData} );
+  this.render('home');
 });
 
 Router.map(function() {
