@@ -1,3 +1,5 @@
 <template name="requestItem">
-	<li><span class="text"><strong>{{first_name}} {{last_name}} ({{email}})</strong> [{{category}}] - {{subject}}: {{text}}</span></li>
+	{{#with joinWithCategory}}
+		<li><span class="text"><strong>{{first_name}} {{last_name}} ({{email}})</strong> [{{category_name}}] - {{subject}}: {{description}}</span></li>
+	{{/with}}
 </template>

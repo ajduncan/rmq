@@ -23,3 +23,15 @@ Template.insertRequest.events({
     return false;
   }
 });
+
+Template.insertRequest.helpers({
+    categoryOptions: function() {
+        var options = [];
+        Categories.find({}).forEach(function(element) {
+            options.push({
+                label: element.name, value: element._id
+            })
+        });
+        return options;
+    }
+});
