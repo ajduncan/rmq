@@ -1,0 +1,14 @@
+<template name="insertRequest">
+	{{#autoForm collection="Requests" id="insertRequestForm" type="insert"}}
+	<fieldset>
+		{{> afQuickField name='first_name' placeholder='First name'}}
+		{{> afQuickField name='last_name' placeholder='Last name'}}
+		{{> afQuickField name='email' placeholder='Email'}}
+		{{> afQuickField name='category' options=categoryOptions}}
+		{{> afQuickField name='subject' placeholder='Subject'}}
+		{{> afQuickField name='description' placeholder='Description of request' rows='6'}}
+	</fieldset>
+	<button type="submit" class="btn btn-primary">Submit</button>
+	{{/autoForm}}
+</template>
+

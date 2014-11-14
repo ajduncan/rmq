@@ -1,0 +1,13 @@
+<template name="listRequests">
+	<div class="container">
+		<header>
+			<h1>Manage Requests</h1>
+			{{> loginButtons}}
+		</header>
+		<ul>
+			{{#each requests}}
+				{{> requestItem}}
+			{{/each}}
+		</ul>
+	</div>
+</template>
