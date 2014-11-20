@@ -1,5 +1,5 @@
 <template name="requestItem">
 	{{#with joinWithCategory}}
-		<li><span class="text"><strong>{{first_name}} {{last_name}} ({{email}})</strong> [{{category_name}}] - {{subject}}: {{description}}</span></li>
+		<li><span class="text"><a href="{{ pathFor 'updateRequest' }}"><strong>{{first_name}} {{last_name}} ({{email}})</strong> [{{category_name}}] - {{subject}}: {{description}}</a></span></li>
 	{{/with}}
 </template>
