@@ -24,3 +24,13 @@ management of requests and integration with other systems.
 	$ passenger start
 
 	View the application at http://localhost:3000/
+
+	3. Using Docker:
+
+	(OSX)
+	$ brew install boot2docker
+	$ boot2docker init && boot2docker up
+	$ # export DOCKER_HOST, DOCKER_CERT_PATH, DOCKER_TLS_VERIFY
+	$ # optionally you may have brew upgraded and need to boot2docker stop && boot2docker download && boot2docker up 
+	$ docker build -t rmq . 
+	
