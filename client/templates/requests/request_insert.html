@@ -1,5 +1,5 @@
 <template name="insertRequest">
-	{{#autoForm collection="Requests" id="insertRequestForm" type="insert"}}
+	{{#autoForm collection="Requests" id="insertRequestForm" resetOnSuccess="true" type="insert"}}
 	<fieldset>
 		{{> afQuickField name='first_name' placeholder='First name'}}
 		{{> afQuickField name='last_name' placeholder='Last name'}}
