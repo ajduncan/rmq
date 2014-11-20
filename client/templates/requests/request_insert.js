@@ -9,7 +9,15 @@ Template.insertRequest.events({
     var category = event.target.category.value;
     var description = event.target.description.value;
 
-    Meteor.call("insertRequest", first_name, last_name, email, subject, category, description);
+    Meteor.call("insertRequest", first_name, last_name, email, subject, category, description, 
+        function (error, result) {
+            if (error) {
+                alert(error);
+            } else {
+                bootbox.alert('Request added!');
+            }
+        }
+    );
 
     // Clear form
     event.target.first_name.value = "";
