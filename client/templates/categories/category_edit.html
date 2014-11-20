@@ -1,0 +1,8 @@
+<template name="updateCategory">
+	{{#autoForm collection="Categories" id="updateCategoryForm" doc=this type="update"}}
+	<fieldset>
+		{{> afQuickField name='name'}}
+	</fieldset>
+	<button type="submit" class="btn btn-primary">Update</button>
+	{{/autoForm}}
+</template>

@@ -1,0 +1,9 @@
+<template name="insertCategory">
+	{{#autoForm collection="Categories" id="insertCategoryForm" type="insert"}}
+	<fieldset>
+		{{> afQuickField name='name' placeholder='Category name'}}
+	</fieldset>
+	<button type="submit" class="btn btn-primary">Submit</button>
+	{{/autoForm}}
+</template>
+
